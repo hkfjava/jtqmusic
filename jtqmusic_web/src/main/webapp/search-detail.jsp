@@ -68,25 +68,28 @@
 
                                                     <ul class="list-group list-group-lg" id="songs_ul">
 
-                                                        <%--歌曲循环--%>
-                                                        <c:forEach items="${songs}" var="song">
-                                                            <li class="list-group-item">
+                                                        <c:forEach items="${user_coll_songs_ids_info}" var="songs" varStatus="status" >
+                                                            <li class="list-group-item" id="li_${songs.songs.songs_id}">
                                                                 <div class="pull-right m-l">
-                                                                    <a href="#" class="m-r-sm"><i class="icon-cloud-download"></i></a>
-                                                                    <a href="#" class="m-r-sm"><i class="icon-plus"></i></a>
-                                                                    <a href="#"><i class="icon-close"></i></a>
+                                                                    <span  onclick="coll_songs(${songs.songs.songs_id})" class="m-r-sm"><i id="coll_${songs.songs.songs_id}" class="icon-heart"></i></span>
+                                                                    <span onclick="download_songs(${songs.songs.songs_id})"  class="m-r-sm"><i class="icon-cloud-download"></i></span>
+                                                                    <span onclick="add_songmenu_button(${songs.songs.songs_id})" id="add_playList_${songs.songs.songs_id}" class="m-r-sm dropdown-toggle" data-toggle="dropdown"><i class="icon-plus"></i></span>
                                                                 </div>
                                                                 <a href="#" class="jp-play-me m-r-sm pull-left">
-                                                                    <i class="icon-control-play text"></i>
-                                                                    <i class="icon-control-pause text-active"></i>
+                                                                    <i id="songs_play_${status.index}" onclick="songs_play(${status.index})" class="icon-control-play text"></i>
+                                                                    <i id="songs_pause_${status.index}" onclick="songs_pause(${status.index})" class="icon-control-pause text-active"></i>
                                                                 </a>
                                                                 <div class="clear text-ellipsis">
-                                                                    <span>${song.songs_name}</span>
-                                                                    <span class="text-muted"> -- 04:35</span>
+                                                                    <input hidden id="album_detail_songs_songs_id_${status.index}"   value="${songs.songs.songs_id}"  />
+                                                                    <input hidden id="songs_url_${status.index}"   value="${songs.songs.songs_url}"  />
+                                                                    <span id="songs_name_new_${status.index}">${songs.songs.songs_name}</span>
+                                                                    <input hidden id="singer_name_new_${status.index}" value="${songs.singer.singer_name}"/>
+                                                                    <input hidden id="singer_id_new_${status.index}" value="${songs.singer.singer_id}"/>
+                                                                    <input hidden id="album_imgUrl_new_${status.index}" value="${songs.album.album_imgUrl}"/>
+                                                                    <a href="${pageContext.request.contextPath}/singer/findById.do?singer_id=${songs.singer.singer_id}"><span class="text-primary" >------${songs.singer.singer_name}</span></a>
                                                                 </div>
                                                             </li>
                                                         </c:forEach>
-
 
                                                     </ul>
 
@@ -109,8 +112,8 @@
                                                                             <a href="track-detail.html"><img src="${album.album_imgUrl}" alt="" class="r r-2x img-full"></a>
                                                                         </div>
                                                                         <div class="padder-v">
-                                                                            <a href="track-detail.html" data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis">${album.album_name}</a>
-                                                                            <a href="track-detail.html" data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis text-xs text-muted">${album.album_issueDate_str}</a>
+                                                                            <a href="${pageContext.request.contextPath}/album/findById.do?album_id=${album.album_id}" data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis">${album.album_name}</a>
+                                                                            <span  data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis text-xs text-muted">${album.album_issueDate_str}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -122,36 +125,37 @@
 
 
 
-                                                    <%--歌手--%>
-                                                 <div class="tab-pane" id="like">
 
-                                                     <section class="scrollable padder-lg">
-                                                         <div class="row row-sm" id="selectRegion" >
-                                                             <c:forEach items="${singers}" var="singer">
-                                                                 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                                                                     <div class="item">
-                                                                         <div class="pos-rlt">
-                                                                             <div class="item-overlay opacity r r-2x bg-black">
-                                                                                 <div class="center text-center m-t-n">
-                                                                                     <a href="#"><i class="fa fa-play-circle i-2x"></i></a>
-                                                                                 </div>
-                                                                             </div>
-                                                                             <a href="track-detail.html"><img src="${singer.singer_imgUrl}" alt="" class="r r-2x img-full"></a>
-                                                                         </div>
-                                                                         <div class="padder-v">
-                                                                             <a href="track-detail.html" data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis">${singer.singer_name}</a>
-                                                                             <a href="track-detail.html" data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis text-xs text-muted">收藏：${singer.singer_collCount}</a>
-                                                                         </div>
-                                                                     </div>
-                                                                 </div>
-                                                             </c:forEach>
-                                                         </div>
-
-                                                     </section>
-
-                                                 </div>
 
                                             </div>
+
+                                                    <%--歌手--%><div class="tab-pane" id="like">
+
+                                                        <section class="scrollable padder-lg">
+                                                            <div class="row row-sm" id="selectRegion" >
+                                                                <c:forEach items="${singers}" var="singer">
+                                                                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                                                                        <div class="item">
+                                                                            <div class="pos-rlt">
+                                                                                <div class="item-overlay opacity r r-2x bg-black">
+                                                                                    <div class="center text-center m-t-n">
+                                                                                        <a href="#"><i class="fa fa-play-circle i-2x"></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <a href="track-detail.html"><img src="${singer.singer_imgUrl}" alt="" class="r r-2x img-full"></a>
+                                                                            </div>
+                                                                            <div class="padder-v">
+                                                                                <a href="${pageContext.request.contextPath}/singer/findById.do?singer_id=${singer.singer_id}" data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis">${singer.singer_name}</a>
+                                                                                <span data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis text-xs text-muted">收藏：${singer.singer_collCount}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:forEach>
+                                                            </div>
+
+                                                        </section>
+
+                                                    </div>
                                         </div>
                                         </div>
                                     </section>
@@ -163,7 +167,8 @@
 
                         </div>
                     </section>
-
+                    <%-- 引入底部音乐播放页面 --%>
+                    <%@ include file="common/footer.jsp" %>
                 </section>
                 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
             </section>
@@ -183,166 +188,81 @@
 <script type="text/javascript" src="js/jPlayer/demo.js"></script>
 
 
+
+</body>
 <script type="text/javascript">
-    $(function () {
-        var l = $('#ul_selectupload li');
-        // alert(l.length);
 
-        if ($(l[0]).attr('class')== 'active') {
-            console.log("歌曲默认选中");
 
-            // 异步发请求获取歌曲信息
-            // 异步发请求获取歌曲信息
+    // 收藏歌曲函数
+    function coll_songs(songs_id) {
+        console.log("点击收藏歌曲coll_songs,歌曲id：" + songs_id)
+
+        var coll_flag = $('#coll_' + songs_id).hasClass("text-danger");
+
+        if (coll_flag == false) {   // 未被收藏 点击收藏
+            console.log("异步收藏")
+            // 异步请求收藏歌曲
             $.ajax({
-                url:'${pageContext.request.contextPath}/songs/findAllBy_SingerId.do?singer_id=${singer.singer_id}',
-                contentType:"application/json;charset=utf-8",
-                type:"POST",
-                dataType:"JSON",
-                success:function (res) {
-                    $('#songs_ul').empty();
-                    for (let i = 0; i < res.length; i++) {
-                        console.log('请求成功' + res.length + res[i]['songs_id']);
-                        var name = res[i]['songs_name'];
-                        var id = res[i]['songs_id']
-                        var imgUrl = res[i]['songs_url'];
-                        var item = "<li class=\"list-group-item\">\n" +
-                            "                                                            <div class=\"pull-right m-l\">\n" +
-                            "                                                                <a href=\"#\" class=\"m-r-sm\"><i class=\"icon-heart\"></i></a>\n" +
-                            "                                                                <a href=\"#\" class=\"m-r-sm\"><i class=\"icon-cloud-download\"></i></a>\n" +
-                            "                                                                <a href=\"#\" class=\"m-r-sm\"><i class=\"icon-plus\"></i></a>\n" +
-                            "                                                                <a href=\"#\"><i class=\"icon-close\"></i></a>\n" +
-                            "                                                            </div>\n" +
-                            "                                                            <a href=\"#\" class=\"jp-play-me m-r-sm pull-left\">\n" +
-                            "                                                                <i class=\"icon-control-play  \" id=\"songs_play_"+i+"\"  onclick=\"songs_play("+i+")\" ></i>\n" +
-                            "                                                                <i class=\"icon-control-pause text-active\" id=\"songs_pause_"+i+"\" onclick=\"songs_pause("+i+")\" ></i>\n" +
-                            "                                                            </a>\n" +
-                            "                                                            <div class=\"clear text-ellipsis\">\n" +
-                            "                                                                <input hidden  value='"+id+"' />\n" +
-                            "                                                                <input hidden  value='"+imgUrl+"' id=\"songs_url_"+i+"\" /><span>"+name+"</span>\n" +
-                            "                                                                <span class=\"text-muted\"> -- 04:35</span>\n" +
-                            "                                                            </div>\n" +
-                            "                                                        </li>";
-
-                        $('#songs_ul').append(item);
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: '${pageContext.request.contextPath}/user/coll.do?songs_id=' + songs_id,//url
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result = 101) {
+                        // 添加class
+                        $('#coll_' + songs_id).addClass("text-danger");
+                    } else {
+                        alert("收藏失败，该歌曲已经被收藏");
                     }
-                    // console.log(res);
+                },
+                error: function () {
+                    alert("收藏失败2 请登录或者重新收藏");
+                    window.location.href = "${pageContext.request.contextPath}/signin.jsp";
                 }
             });
+        } else if (coll_flag == true) {
+            console.log("异步取消收藏")
 
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: '${pageContext.request.contextPath}/user/coll_cancel.do?songs_id=' + songs_id,//url
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result = 101) {
+                        // 添加class
+                        $('#coll_' + songs_id).removeClass("text-danger");
+                        // 移除li
+                        $('#li_' + songs_id).remove();
 
+                    } else {
+                        alert("取消收藏失败，该歌曲已经被收藏");
+                    }
+                },
+                error: function () {
+                    alert("取消收藏失败2");
+                }
+            });
         }
 
-    });
-
-
-
-
-     getSongs = function () {
-        console.log("点击歌曲");
-
-        // 异步发请求获取歌曲信息
 
 
     };
 
-     getAlbum = function () {
-        console.log("点击专辑:" + ${singer.singer_id});
-
-         // 异步发请求获取歌手专辑信息
-         $.ajax({
-             url:'${pageContext.request.contextPath}/album/findBySinger_Id.do?singer_id=${singer.singer_id}',
-             contentType:"application/json;charset=utf-8",
-             type:"POST",
-             dataType:"JSON",
-             success:function (res) {
-                 $('#selectAlbum').empty();
-                 for (let i = 0; i < res.length; i++) {
-                     console.log('请求成功' + res.length + res[i]['album_id']);
-                     var name = res[i]['album_name'];
-                     var id = res[i]['album_id']
-                     var imgUrl = res[i]['album_imgUrl'];
-                     var issueDate = res[i]['album_issueDate_str'];
-                     var item = "<div class=\"col-xs-6 col-sm-4 col-md-3 col-lg-2\">\n" +
-                         "                        <div class=\"item\">\n" +
-                         "                        <div class=\"pos-rlt\">\n" +
-                         "                        <div class=\"item-overlay opacity r r-2x bg-black\">\n" +
-                         "                        <div class=\"center text-center m-t-n\">\n" +
-                         "                        <a href=\"#\"><i class=\"fa fa-play-circle i-2x\"></i></a>\n" +
-                         "                    </div>\n" +
-                         "                    </div>\n" +
-                         "                    <a href=\"track-detail.html\"><img src=\""+ imgUrl+"\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
-                         "                        </div>\n" +
-                         "                        <div class=\"padder-v\">\n" +
-                         "                        <a href=\"${pageContext.request.contextPath}/album/findById.do?album_id="+id+"&singer_id="+ ${singer.singer_id} +"\" data-bjax data-target=\"#bjax-target\" data-el=\"#bjax-el\" data-replace=\"true\" class=\"text-ellipsis\">"+name+"</a>\n" +
-                         "                    <div  data-bjax data-target=\"#bjax-target\" data-el=\"#bjax-el\" data-replace=\"true\" class=\"text-ellipsis text-xs text-muted\">"+ issueDate +"</div>\n" +
-                         "                        </div>\n" +
-                         "                        </div>\n" +
-                         "                        </div>";
-
-                     $('#selectAlbum').append(item);
-                 }
-                 // console.log(res);
-             }
-         });
-
-    };
-
-
-
-    getSinger = function() {
-        console.log("点击相似歌手:" + ${singer.singer_id});
-
-
-        // 异步发请求获取相似歌手信息
-        $.ajax({
-            url:'${pageContext.request.contextPath}/singer/findLikeSinger.do?singer_id=${singer.singer_id}&singer_sex=${singer.singer_sex}&classify_id=${classify.classify_id}',
-            contentType:"application/json;charset=utf-8",
-            type:"POST",
-            dataType:"JSON",
-
-            success:function (res) {
-                $('#selectRegion').empty();
-                for (let i = 0; i < res.length; i++) {
-                    console.log('请求成功' + res.length + res[i]['singer_id']);
-                    var name = res[i]['singer_name'];
-                    var id = res[i]['singer_id']
-                    var imgUrl = res[i]['singer_imgUrl'];
-                    var collCount = res[i]['singer_collCount'];
-                    var item = "<div class=\"col-xs-6 col-sm-4 col-md-3 col-lg-2\">\n" +
-                        "                        <div class=\"item\">\n" +
-                        "                        <div class=\"pos-rlt\">\n" +
-                        "                        <div class=\"item-overlay opacity r r-2x bg-black\">\n" +
-                        "                        <div class=\"center text-center m-t-n\">\n" +
-                        "                        <a href=\"#\"><i class=\"fa fa-play-circle i-2x\"></i></a>\n" +
-                        "                    </div>\n" +
-                        "                    </div>\n" +
-                        "                    <a href=\"track-detail.html\"><img src=\""+ imgUrl+"\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"padder-v\">\n" +
-                        "                        <a href=\"${pageContext.request.contextPath}/singer/findById.do?singer_id="+id+"\" data-bjax data-target=\"#bjax-target\" data-el=\"#bjax-el\" data-replace=\"true\" class=\"text-ellipsis\">"+name+"</a>\n" +
-                        "                    <div  data-bjax data-target=\"#bjax-target\" data-el=\"#bjax-el\" data-replace=\"true\" class=\"text-ellipsis text-xs text-muted\">收藏："+collCount+"</div>\n" +
-                        "                        </div>\n" +
-                        "                        </div>\n" +
-                        "                        </div>";
-
-                    $('#selectRegion').append(item);
-                }
-                // console.log(res);
-            }
-        });
-    };
-    getMV = function() {
-        console.log("暂不支持");
-    };
-
+    // 单机播放单首歌曲
     function songs_play(a) {
         console.log("点击歌曲的播放按钮");
         console.log(a);
 
+        song_url_s = a;
+
+
         var b = $('#songs_ul li');
         // console.log(b,b.length);
         // 遍历获得所有播放和暂停键
-        for (var i=0; i<b.length; i++) {
+        for (var i = 0; i < b.length; i++) {
             $('#songs_play_' + i).removeClass("text-active");
             $('#songs_pause_' + i).addClass("text-active");
         }
@@ -351,7 +271,23 @@
         $('#songs_pause_' + a).removeClass("text-active");
 
         // 获取歌曲地址
-        var s_url = $('#songs_url_' +a).val();
+        var s_url = $('#songs_url_' + a).val();
+
+        // 获取歌手id，歌曲名字，歌手名字，歌曲id，专辑图片
+        var s_name = $("#songs_name_new_" + a).text();
+        var s_name_singer = $("#singer_name_new_" + a).val();
+        var s_id_singer = $("#singer_id_new_" + a).val();
+        var s_album_img = $("#album_imgUrl_new_" + a).val();
+
+
+        // 执行方法
+
+        // getSongs_info_play(s_name, s_name_singer, s_id_singer, s_album_img);
+
+        s_name_arr.push(s_name);
+        s_name_singer_arr.push(s_name_singer);
+        s_id_singer_arr.push(s_id_singer);
+        s_album_img_arr.push(s_album_img);
 
         // 播放歌曲
         play_songs(s_url);
@@ -363,11 +299,97 @@
         console.log("点击歌曲的暂停按钮");
         $('#songs_play_' + a).removeClass("text-active");
         $('#songs_pause_' + a).addClass("text-active");
+
+        // 暂停歌曲
+        pauseAudio(a);
+    };
+
+    // 点击播放全部的事件
+    // 第三版，发送异步请求，存取数据到PlayList实体，然后存放到session
+    function play_allSongs() {
+
+        // 获取所有歌曲id
+
+        console.log("点击播放全部-发送异步请求，存放所有歌曲id到后端");
+        var ids = [];
+        // 获取该专辑所有歌曲地址和id 再调用
+        var b = $('#songs_ul li');  // 获取歌曲所有li
+        // console.log(b,b.length);
+        // 遍历获得所有播放和暂停键
+        for (var i = 0; i < b.length; i++) {
+
+            // 获取歌曲地址
+            var id = $('#album_detail_songs_songs_id_' + (i)).val();
+            console.log("id类型" + typeof id);
+            ids.push(id);
+
+        }
+        console.log("所有ids" + ids);
+
+        // 异步发请求存取
+        $.ajax({
+            url: '${pageContext.request.contextPath}/playList/savePlayList.do',
+            contentType: "application/json;charset=utf-8",
+            type: "GET",
+            data: {"songs_ids": ids},
+            traditional: true,
+            success: function (res) {
+                console.log(res);//打印服务端返回的数据(调试用)
+                if (res == 101) {
+                    alert("成功");
+                } else {
+                    alert("插入失败,请重新插入1");
+                }
+            },
+            error: function () {
+                alert("插入失败,请重新插入2");
+            }
+        });
+
+
+    };
+
+    // 添加到歌单按钮
+    function add_songmenu_button(song_id) {
+        console.log("song_id:" + song_id);
+        // 获取该对象
+        songmenu_songs_id = song_id;
+        console.log("songmenu_songs_id:" + songmenu_songs_id);
+        $('#add_playList_'+song_id).after($('#songmenu_menu_ul'));
+
     };
 
 
+    // 选择歌单添加
+    function add_songmenu_li(songmenu_id) {
+        console.log("add_songmenu_li:" + songmenu_id);
+
+        // 异步发请求存取
+        $.ajax({
+            url: '${pageContext.request.contextPath}/songsmenu/save_songmenu_songs.do?songsmenu_id='+songmenu_id+"&songs_id="+ songmenu_songs_id,
+            contentType: "application/json;charset=utf-8",
+            type: "POST",
+            traditional: true,
+            success: function (res) {
+                console.log(res);//打印服务端返回的数据(调试用)
+                if (res == 101) {
+                    alert("添加歌单成功");
+                } else {
+                    alert("添加歌单失败,请重新插入1");
+                }
+            },
+            error: function () {
+                alert("插入歌单失败,请重新插入2");
+            }
+        });
+
+    };
+
+    function download_songs(songs_id) {
+        console.log("下载");
+        window.location.href = "${pageContext.request.contextPath}/download/downLoadFile.do?fileName="+songs_id;
+    };
 
 
 </script>
-</body>
 </html>

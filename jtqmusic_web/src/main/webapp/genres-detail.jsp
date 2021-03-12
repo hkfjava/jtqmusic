@@ -119,15 +119,7 @@
                                                         <div class="row row-sm" id="selectAlbum">
 
                                                         </div>
-                                                        <ul class="pagination pagination">
-                                                            <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-                                                            <li class="active"><a href="#">1</a></li>
-                                                            <li><a href="#">2</a></li>
-                                                            <li><a href="#">3</a></li>
-                                                            <li><a href="#">4</a></li>
-                                                            <li><a href="#">5</a></li>
-                                                            <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-                                                        </ul>
+
                                                     </section>
 
 
@@ -340,12 +332,7 @@
                      var item = "<div class=\"col-xs-6 col-sm-4 col-md-3 col-lg-2\">\n" +
                          "                        <div class=\"item\">\n" +
                          "                        <div class=\"pos-rlt\">\n" +
-                         "                        <div class=\"item-overlay opacity r r-2x bg-black\">\n" +
-                         "                        <div class=\"center text-center m-t-n\">\n" +
-                         "                        <a href=\"#\"><i class=\"fa fa-play-circle i-2x\"></i></a>\n" +
-                         "                    </div>\n" +
-                         "                    </div>\n" +
-                         "                    <a href=\"track-detail.html\"><img src=\""+ imgUrl+"\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
+                         "                    <a href=\"${pageContext.request.contextPath}/album/findById.do?album_id="+id+"&singer_id="+ ${singer.singer_id} +"\"><img src=\""+ imgUrl+"\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
                          "                        </div>\n" +
                          "                        <div class=\"padder-v\">\n" +
                          "                        <a href=\"${pageContext.request.contextPath}/album/findById.do?album_id="+id+"&singer_id="+ ${singer.singer_id} +"\" data-bjax data-target=\"#bjax-target\" data-el=\"#bjax-el\" data-replace=\"true\" class=\"text-ellipsis\">"+name+"</a>\n" +
@@ -386,12 +373,7 @@
                     var item = "<div class=\"col-xs-6 col-sm-4 col-md-3 col-lg-2\">\n" +
                         "                        <div class=\"item\">\n" +
                         "                        <div class=\"pos-rlt\">\n" +
-                        "                        <div class=\"item-overlay opacity r r-2x bg-black\">\n" +
-                        "                        <div class=\"center text-center m-t-n\">\n" +
-                        "                        <a href=\"#\"><i class=\"fa fa-play-circle i-2x\"></i></a>\n" +
-                        "                    </div>\n" +
-                        "                    </div>\n" +
-                        "                    <a href=\"track-detail.html\"><img src=\""+ imgUrl+"\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
+                        "                    <a href=\"${pageContext.request.contextPath}/singer/findById.do?singer_id="+id+"\"><img src=\""+ imgUrl+"\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
                         "                        </div>\n" +
                         "                        <div class=\"padder-v\">\n" +
                         "                        <a href=\"${pageContext.request.contextPath}/singer/findById.do?singer_id="+id+"\" data-bjax data-target=\"#bjax-target\" data-el=\"#bjax-el\" data-replace=\"true\" class=\"text-ellipsis\">"+name+"</a>\n" +

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -55,8 +56,12 @@ public class SearchController {
             album.setAlbum_issueDate_str(DateUtils.date2String(album.getAlbum_issueDate(), patt));
         }
 
+        // 存放歌曲所有信息
+        List<SongsAlbumSinger> user_coll_songs_ids_info = new ArrayList<>();
+        user_coll_songs_ids_info = findSongs_info(songs);
+
         mv.addObject("singers", singers);
-        mv.addObject("songs", songs);
+        mv.addObject("user_coll_songs_ids_info", user_coll_songs_ids_info);
         mv.addObject("albums", albums);
 
         mv.addObject("albums_count", albums.size());
@@ -68,6 +73,20 @@ public class SearchController {
 //        mv.addObject("user", classifies);
         mv.setViewName("search-detail");
         return mv;
+    }
+
+    // 方法 根据 歌曲集合，返回排行榜歌曲信息集合
+    public List<SongsAlbumSinger> findSongs_info(List<Songs> songsList) throws Exception {
+        List<SongsAlbumSinger> songs_playCounts = new ArrayList<>();
+        // 获取专辑图片
+        for (Songs songs : songsList) {
+            SongsAlbumSinger s = new SongsAlbumSinger();
+            s.setSinger(singerService.findById(songs.getSinger_id()));
+            s.setAlbum(albumService.findById(songs.getAlbum_id()));
+            s.setSongs(songs);
+            songs_playCounts.add(s);
+        }
+        return songs_playCounts;
     }
 
 }

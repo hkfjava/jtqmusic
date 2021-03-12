@@ -346,12 +346,7 @@
                         var item = "<div class=\"col-xs-6 col-sm-4 col-md-3 col-lg-2\">\n" +
                             "                        <div class=\"item\">\n" +
                             "                        <div class=\"pos-rlt\">\n" +
-                            "                        <div class=\"item-overlay opacity r r-2x bg-black\">\n" +
-                            "                        <div class=\"center text-center m-t-n\">\n" +
-                            "                        <a href=\"#\"><i class=\"fa fa-play-circle i-2x\"></i></a>\n" +
-                            "                    </div>\n" +
-                            "                    </div>\n" +
-                            "                    <a href=\"track-detail.html\"><img src=\"" + imgUrl + "\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
+                            "                    <a href=\"${pageContext.request.contextPath}/album/findById.do?album_id=" + id + "&singer_id=" + ${singer.singer_id} +"\"><img src=\"" + imgUrl + "\" alt=\"\" class=\"r r-2x img-full\"></a>\n" +
                             "                        </div>\n" +
                             "                        <div class=\"padder-v\">\n" +
                             "                        <a href=\"${pageContext.request.contextPath}/album/findById.do?album_id=" + id + "&singer_id=" + ${singer.singer_id} +"\" data-bjax data-target=\"#bjax-target\" data-el=\"#bjax-el\" data-replace=\"true\" class=\"text-ellipsis\">" + name + "</a>\n" +

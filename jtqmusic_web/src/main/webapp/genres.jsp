@@ -73,7 +73,7 @@
                                                 </a>
                                             </c:forEach>
                                         </div>
-
+                                        </div>
 
                                     </section>
                                 </section>
@@ -89,12 +89,7 @@
                                             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                                                 <div class="item">
                                                     <div class="pos-rlt">
-                                                        <div class="item-overlay opacity r r-2x bg-black">
-                                                            <div class="center text-center m-t-n">
-                                                                <a href="#"><i class="fa fa-play-circle i-2x"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <a href="track-detail.html"><img src="${singer.singer_imgUrl}" alt="加载出错" class="r r-2x img-full"></a>
+                                                        <a href="${pageContext.request.contextPath}/singer/findById.do?singer_id=${singer.singer_id}"><img src="${singer.singer_imgUrl}" alt="加载出错" class="r r-2x img-full"></a>
                                                     </div>
                                                     <div class="padder-v">
                                                         <a href="${pageContext.request.contextPath}/singer/findById.do?singer_id=${singer.singer_id}" data-bjax data-target="#bjax-target" data-el="#bjax-el" data-replace="true" class="text-ellipsis">${singer.singer_name} </a>
