@@ -25,6 +25,8 @@ public class AlbumController {
     @Autowired
     private ISingerService singerService;
 
+
+
     @Autowired
     private IAlbumService albumService;
 
