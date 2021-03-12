@@ -1,0 +1,11 @@
+cn\hkf\controller\SingerController.class
+cn\hkf\controller\UserController.class
+cn\hkf\controller\SongsController.class
+cn\hkf\controller\SearchController.class
+cn\hkf\controller\rankController.class
+cn\hkf\controller\SongsMenuController.class
+cn\hkf\controller\IndexController.class
+cn\hkf\controller\downloadController.class
+cn\hkf\controller\PlayListController.class
+cn\hkf\controller\AlbumController.class
+cn\hkf\controller\ArticleController.class

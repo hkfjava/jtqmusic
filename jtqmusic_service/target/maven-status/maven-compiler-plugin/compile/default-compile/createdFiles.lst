@@ -1,0 +1,16 @@
+cn\hkf\service\IClassifyService.class
+cn\hkf\service\ISongsService.class
+cn\hkf\service\IArticleService.class
+cn\hkf\service\impl\SingerServiceImpl.class
+cn\hkf\service\impl\SongMenuServiceImpl.class
+cn\hkf\service\impl\AlbumServiceImpl.class
+cn\hkf\service\impl\RegionServiceImpl.class
+cn\hkf\service\IUserService.class
+cn\hkf\service\ISingerService.class
+cn\hkf\service\impl\SongsServiceImpl.class
+cn\hkf\service\IRegionService.class
+cn\hkf\service\IAlbumService.class
+cn\hkf\service\impl\UserServiceImpl.class
+cn\hkf\service\impl\ArticleServiceImpl.class
+cn\hkf\service\impl\ClassifyServiceImpl.class
+cn\hkf\service\ISongMenuService.class

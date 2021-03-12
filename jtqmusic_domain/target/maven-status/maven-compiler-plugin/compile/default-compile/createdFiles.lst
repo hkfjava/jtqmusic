@@ -1,0 +1,11 @@
+cn\hkf\domain\PlayList.class
+cn\hkf\domain\Album.class
+cn\hkf\domain\Region.class
+cn\hkf\domain\Article.class
+cn\hkf\domain\User.class
+cn\hkf\domain\Classify.class
+cn\hkf\domain\SongMenu.class
+cn\hkf\domain\Songs.class
+cn\hkf\domain\Comment.class
+cn\hkf\domain\Singer.class
+cn\hkf\domain\SongsAlbumSinger.class

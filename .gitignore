@@ -1,0 +1,24 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+### IntelliJ IDEA ###
+.idea
+out
+gent
+*.iml
+
+### File ###
+/.apt_generated
+/.classpath
+/.factorypath
+/.project
+/.settings
+/.springBeans
+/.sts4-cache
+/.mp3
+#/.gitignore
+
+### Pakage ###
+/build/
+/logs/
+/target/
+/music/

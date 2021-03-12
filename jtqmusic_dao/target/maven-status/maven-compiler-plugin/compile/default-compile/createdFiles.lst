@@ -1,0 +1,8 @@
+cn\hkf\dao\ISongsDao.class
+cn\hkf\dao\IArticleDao.class
+cn\hkf\dao\IClassifyDao.class
+cn\hkf\dao\ISingerDao.class
+cn\hkf\dao\IAlbumDao.class
+cn\hkf\dao\IUserDao.class
+cn\hkf\dao\ISongMenuDao.class
+cn\hkf\dao\IRegionDao.class
